@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+    position: relative;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+nav,
+.mobile-menu {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+nav a,
+.mobile-menu a {
+    text-decoration: none;
+    color: #ccc;
+    font-weight: bold;
+}
+
+nav a:hover,
+.mobile-menu a:hover {
+    text-decoration: underline;
+}
+
+.menu-button {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    padding: 1rem;
+}
+
+.login-btn {
+    padding: 0.5rem 1rem;
+    background-color: #ff5722;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #e64a19;
+}
+
+@media (max-width: 768px) {
+    .menu-button {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .mobile-menu.open {
+        display: flex;
+    }
+}
