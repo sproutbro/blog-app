@@ -1,4 +1,7 @@
 <script>
+    /** @type {import('./$types').PageData} */
+    export let data;
+
     let isMenuOpen = false;
 
     const toggleMenu = () => {
@@ -21,23 +24,30 @@
         {#each navLinks as { href, label }}
             <a {href}>{label}</a>
         {/each}
-        <a href="/auth/login" class="login-btn">Login</a>
+        {#if data.isLogin}
+            <a href="/user/profile" class="login-btn">User</a>
+        {:else}
+            <a href="/auth/login" class="login-btn">Login</a>
+        {/if}
     </nav>
     <div class="mobile-menu {isMenuOpen ? 'open' : ''}">
         {#each navLinks as { href, label }}
             <a {href} on:click={() => (isMenuOpen = false)}>{label}</a>
         {/each}
-        <a
-            href="/auth/login"
-            class="login-btn"
-            on:click={() => (isMenuOpen = false)}>Login</a
-        >
 
-        <!-- {#if data.isLogin}
-			<a href="/user/profile" class="login-btn" on:click={() => (isMenuOpen = false)}>User</a>
-		{:else}
-			<a href="/auth/login" class="login-btn" on:click={() => (isMenuOpen = false)}>Login</a>
-		{/if} -->
+        {#if data.isLogin}
+            <a
+                href="/user/profile"
+                class="login-btn"
+                on:click={() => (isMenuOpen = false)}>User</a
+            >
+        {:else}
+            <a
+                href="/auth/login"
+                class="login-btn"
+                on:click={() => (isMenuOpen = false)}>Login</a
+            >
+        {/if}
     </div>
 </header>
 
