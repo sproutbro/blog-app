@@ -1,6 +1,7 @@
 import { redirect } from "@sveltejs/kit";
 import { handleCallback } from "$lib/auth";
-import { query } from "$lib/db";
+import { query } from "$lib/utils";
+import { selectUser, insertUser } from "$lib/sql";
 
 
 /** @type {import('./$types').RequestHandler} */
@@ -13,18 +14,3 @@ export async function GET(event) {
     return redirect(302, "/");
 }
 
-const selectUser = `
-    SELECT
-        *
-    FROM
-        users
-    WHERE
-        id = $1;
-`
-
-const insertUser = `
-    INSERT INTO
-        users
-    VALUES
-        ($1, $2);
-`
