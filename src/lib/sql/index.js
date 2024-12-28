@@ -21,3 +21,11 @@ export const updateUser = `
         nickname = $1
     WHERE id= $2;
 `
+
+export const insertDaily = `
+    INSERT INTO
+        community (users_id, title, description)
+    VALUES
+        ($1, $2, $3)
+    RETURNING id;
+`
