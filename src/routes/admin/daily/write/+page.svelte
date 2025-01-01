@@ -8,12 +8,18 @@
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		formData = Object.fromEntries(new FormData(event.target));
+		console.log(formData.file);
 		isOpen = true;
 	};
 
 	async function handleConfirm() {
-		const { id } = await tryPOST("/admin/daily/write", formData);
-		message = `${id} 번 째 글 등록`;
+		// const { id } = await tryPOST("/admin/daily/write", formData);
+		// message = `${id} 번 째 글 등록`;
+		const response = await fetch("/admin/daily/write", {
+			method: "POST",
+			body: formData, // 자동으로 Content-Type이 "multipart/form-data"로 설정됨
+		});
+
 		isOpen = false;
 	}
 
@@ -33,6 +39,9 @@
 
 				<label for="content">Description</label>
 				<textarea id="content" name="description" required></textarea>
+
+				<label for="file">File</label>
+				<input type="file" id="file" name="file" />
 
 				<button type="submit">Completed</button>
 			</form>

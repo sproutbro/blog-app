@@ -39,7 +39,7 @@
 				<tr>
 					<td>{id}</td>
 					<td>
-						<a href={`/dairy/${id}`} class="title">{title}</a>
+						<a href={`/daily/${id}`} class="title">{title}</a>
 						<div class="mobile-details">
 							<span>{nickname}</span> | <span>{created_at}</span>
 						</div>
