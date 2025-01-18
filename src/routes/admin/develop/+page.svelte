@@ -1,9 +1,45 @@
 <script>
-	import { goto } from '$app/navigation';
-	import { tryPOST } from '$lib/utils/fetch';
+	import { tryPOST } from "$lib/utils/fetch";
+	import { onMount } from "svelte";
 
+	let file;
 	let formData = {};
 	let isOpen = false;
+	let message = "";
+
+	async function handleUpload() {
+		if (!file) return "";
+
+		const formData = new FormData();
+		formData.append("file", file);
+
+		try {
+			const response = await fetch("/api/uploads", {
+				method: "POST",
+				body: formData,
+			});
+
+			if (response.ok) {
+				const result = await response.json();
+				return result.message;
+			} else {
+				const error = await response.json();
+				alert(`파일 업로드 실패: ${error.message}`);
+			}
+		} catch (err) {
+			console.error("업로드 중 오류 발생:", err);
+			alert("업로드 중 오류 발생");
+		}
+	}
+
+	function handleFileChange(event) {
+		const files = event.target.files;
+		if (files.length > 0) {
+			file = files[0]; // 첫 번째 선택된 파일
+		} else {
+			file = null;
+		}
+	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -12,8 +48,11 @@
 	};
 
 	async function handleConfirm() {
-		const { id } = await tryPOST('/community/write', formData);
-		goto(`/community/${id}`);
+		formData.file = await handleUpload();
+		const { id } = await tryPOST("/admin/develop", formData);
+		message = `${id} 번 째 글 등록`;
+
+		isOpen = false;
 	}
 
 	function handleCancel() {
@@ -25,7 +64,14 @@
 	<!-- 네비바와 풋터 사이 간격 확보 -->
 	<div class="content-wrapper">
 		<div class="container">
-			<h1>Write</h1>
+			<h1>Develop</h1>
+			<label for="file">File</label>
+			<input
+				type="file"
+				id="file"
+				name="file"
+				on:change={handleFileChange}
+			/>
 			<form on:submit={handleSubmit}>
 				<label for="title">Title</label>
 				<input type="text" id="title" name="title" required />
@@ -35,6 +81,7 @@
 
 				<button type="submit">Completed</button>
 			</form>
+			{message}
 		</div>
 	</div>
 </div>
@@ -43,8 +90,12 @@
 		<div class="modal">
 			<p class="modal-message">Do you want to register?</p>
 			<div class="modal-actions">
-				<button class="btn confirm-btn" on:click={handleConfirm}>OK</button>
-				<button class="btn cancel-btn" on:click={handleCancel}>Cancel</button>
+				<button class="btn confirm-btn" on:click={handleConfirm}
+					>OK</button
+				>
+				<button class="btn cancel-btn" on:click={handleCancel}
+					>Cancel</button
+				>
 			</div>
 		</div>
 	</div>

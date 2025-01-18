@@ -34,14 +34,6 @@
 				작성자: {data.post.nickname} | 작성일: {data.post.created_at}
 			</div>
 
-			{#if data.post.file}
-				<img
-					class="picture"
-					src={`/uploads/${data.post.file}`}
-					alt={`daily ${data.post.id} img`}
-				/>
-			{/if}
-
 			<div class="content">{data.post.description}</div>
 
 			<div class="comments-section">
@@ -67,12 +59,6 @@
 </div>
 
 <style>
-	.picture {
-		max-height: 300px; /* 최대 높이를 300px로 설정 */
-		width: auto; /* 가로 크기는 자동으로 비율에 맞게 조정 */
-		object-fit: contain;
-	}
-
 	.page-container {
 		display: flex;
 		flex-direction: column;

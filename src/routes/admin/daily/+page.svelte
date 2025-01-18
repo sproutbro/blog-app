@@ -49,7 +49,7 @@
 
 	async function handleConfirm() {
 		formData.file = await handleUpload();
-		const { id } = await tryPOST("/admin/daily/write", formData);
+		const { id } = await tryPOST("/admin/daily", formData);
 		message = `${id} 번 째 글 등록`;
 
 		isOpen = false;
@@ -64,7 +64,7 @@
 	<!-- 네비바와 풋터 사이 간격 확보 -->
 	<div class="content-wrapper">
 		<div class="container">
-			<h1>Write</h1>
+			<h1>Daily</h1>
 			<label for="file">File</label>
 			<input
 				type="file"

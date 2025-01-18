@@ -3,6 +3,7 @@
         <h2>어드민 메뉴</h2>
         <ul class="menu">
             <li><a href="/admin/daily">Daily</a></li>
+            <li><a href="/admin/develop">Develop</a></li>
             <li>사용자 관리리</li>
             <li>통계</li>
         </ul>

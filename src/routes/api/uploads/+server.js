@@ -12,7 +12,7 @@ export async function POST({ request }) {
         }
 
         const buffer = await file.arrayBuffer();
-        const filePath = path.join(process.cwd(), 'uploads', file.name);
+        const filePath = path.join(process.cwd(), 'static', 'uploads', file.name);
 
         // `uploads` 디렉토리에 저장
         await writeFile(filePath, Buffer.from(buffer));
