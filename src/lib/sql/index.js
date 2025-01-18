@@ -23,22 +23,41 @@ export const updateUser = `
 `
 
 export const insertDaily = `
-    INSERT INTO
-        community (users_id, title, description)
+    INSERT INTO 
+        diary (users_id, title, description, file)
     VALUES
-        ($1, $2, $3)
+        ($1, $2, $3, $4)
     RETURNING id;
 `
 
 export const selectDailyDetail = `
-SELECT
-    c.id AS id,
-    c.title AS title,
-    c.description AS description,
-    TO_CHAR(c.created_at, 'YYYY-MM-DD') AS created_at,
-    u.nickname AS nickname
-FROM
-    community c
-    JOIN users u ON c.users_id = u.id
-WHERE c.id = $1;
+    SELECT
+        d.id AS id,
+        d.title AS title,
+        d.description AS description,
+        TO_CHAR(d.created_at, 'YYYY-MM-DD') AS created_at,
+        u.nickname AS nickname
+    FROM
+        diary d
+        JOIN users u ON d.users_id = u.id
+    WHERE d.id = $1;
+`
+
+
+export const selectDaily = `
+    SELECT
+        d.id AS id,
+        d.title AS title,
+        d.description AS description,
+        TO_CHAR(d.created_at, 'YYYY-MM-DD') AS created_at,
+        u.nickname AS nickname
+    FROM
+        diary d
+        JOIN users u ON d.users_id = u.id
+    ORDER BY
+        id DESC
+    LIMIT
+        10
+    OFFSET
+        $1;
 `
