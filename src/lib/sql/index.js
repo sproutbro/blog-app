@@ -22,6 +22,14 @@ export const updateUser = `
     WHERE id= $2;
 `
 
+export const insertBoard = `
+    INSERT INTO 
+        board (users_id, title, description)
+    VALUES
+        ($1, $2, $3)
+    RETURNING id;
+`
+
 export const insertDaily = `
     INSERT INTO 
         daily (users_id, title, description, file)

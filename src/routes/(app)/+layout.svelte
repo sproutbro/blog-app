@@ -27,7 +27,7 @@
             <a {href}>{label}</a>
         {/each}
         {#if data.isLogin}
-            <a href="/user/profile" class="login-btn">User</a>
+            <a href="/user" class="login-btn">User</a>
         {:else}
             <a href="/auth/login" class="login-btn">Login</a>
         {/if}
@@ -39,7 +39,7 @@
 
         {#if data.isLogin}
             <a
-                href="/user/profile"
+                href="/user"
                 class="login-btn"
                 on:click={() => (isMenuOpen = false)}>User</a
             >

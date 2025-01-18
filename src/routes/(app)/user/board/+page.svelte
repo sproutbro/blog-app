@@ -4,7 +4,6 @@
     /** @type {import('./$types').PageData} */
     export let data;
 
-    let btnText = "Write";
     let searchQuery = "";
 
     function searchPosts() {
@@ -12,29 +11,17 @@
     }
 
     function handleSearch() {
-        if (searchQuery === "" && data.isLogin) {
-            return goto("/user/write");
-        }
         alert(`검색어: ${searchQuery}`);
-    }
-
-    function handleButton() {
-        btnText = searchQuery === "" ? "Write" : "Search";
     }
 </script>
 
 <div class="board-container">
-    <h1>Board</h1>
+    <h1>My board</h1>
 
     <div class="board-actions">
         <div class="search-container">
-            <input
-                type="text"
-                bind:value={searchQuery}
-                on:input={handleButton}
-            />
-            <button class="search-btn" on:click={handleSearch}>{btnText}</button
-            >
+            <input type="text" bind:value={searchQuery} />
+            <button class="search-btn" on:click={handleSearch}>Search</button>
         </div>
     </div>
 
