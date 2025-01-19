@@ -1,8 +1,6 @@
 <script>
     import "../../app.css";
-
-    /** @type {import('./$types').PageData} */
-    export let data;
+    import { page } from "$app/stores";
 
     let isMenuOpen = false;
 
@@ -12,11 +10,15 @@
 
     const navLinks = [
         { href: "/", label: "Home" },
-        { href: "/profile", label: "Profile" },
         { href: "/daily", label: "Daily" },
         { href: "/develop", label: "Develop" },
-        { href: "/board", label: "Board" },
+        { href: "/contact", label: "Contact" },
     ];
+
+    $: currentPath = $page.url.pathname;
+
+    const isActive = (href) =>
+        currentPath === href || currentPath.startsWith(href + "/");
 </script>
 
 <header>
@@ -24,32 +26,17 @@
     <button class="menu-button" on:click={toggleMenu}> &#9776; </button>
     <nav>
         {#each navLinks as { href, label }}
-            <a {href}>{label}</a>
+            <a {href} class:login-btn={isActive(href)}>{label}</a>
         {/each}
-        {#if data.isLogin}
-            <a href="/user" class="login-btn">User</a>
-        {:else}
-            <a href="/auth/login" class="login-btn">Login</a>
-        {/if}
     </nav>
     <div class="mobile-menu {isMenuOpen ? 'open' : ''}">
         {#each navLinks as { href, label }}
-            <a {href} on:click={() => (isMenuOpen = false)}>{label}</a>
+            <a
+                {href}
+                class:login-btn={isActive(href)}
+                on:click={() => (isMenuOpen = false)}>{label}</a
+            >
         {/each}
-
-        {#if data.isLogin}
-            <a
-                href="/user"
-                class="login-btn"
-                on:click={() => (isMenuOpen = false)}>User</a
-            >
-        {:else}
-            <a
-                href="/auth/login"
-                class="login-btn"
-                on:click={() => (isMenuOpen = false)}>Login</a
-            >
-        {/if}
     </div>
 </header>
 

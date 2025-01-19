@@ -42,8 +42,12 @@
 				/>
 			{/if}
 
-			<div class="content">{data.post.description}</div>
-
+			<div class="content">
+				<pre>
+{data.post.description}
+				</pre>
+			</div>
+			
 			<div class="comments-section">
 				<h2>댓글</h2>
 				{#each post.comments as comment (comment.id)}
